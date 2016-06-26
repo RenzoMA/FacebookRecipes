@@ -18,6 +18,6 @@ public interface RecipeMainView {
     void setRecipe(Recipe recipe);
     void onGetRecipeError(String error);
 
-    RecipeMainView getView();
+
 
 }
