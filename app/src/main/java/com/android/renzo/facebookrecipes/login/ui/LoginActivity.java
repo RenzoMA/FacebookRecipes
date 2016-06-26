@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
 import com.android.renzo.facebookrecipes.R;
-import com.android.renzo.facebookrecipes.RecipeMainActivity;
+import com.android.renzo.facebookrecipes.recipemain.ui.RecipeMainActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
