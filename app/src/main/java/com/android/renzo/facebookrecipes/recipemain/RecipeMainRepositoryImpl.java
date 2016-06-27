@@ -7,6 +7,7 @@ import com.android.renzo.facebookrecipes.entities.Recipe;
 import com.android.renzo.facebookrecipes.libs.base.EventBus;
 import com.android.renzo.facebookrecipes.recipemain.events.RecipeMainEvent;
 
+import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -29,8 +30,8 @@ public class RecipeMainRepositoryImpl implements RecipeMainRepository {
 
     @Override
     public void getNextRecipe() {
-        Call<RecipeSearchResponse> call = service.search(BuildConfig.FOOD_API_KEY,
-                RECENT_SORT, COUNT, recipePage);
+        Call<RecipeSearchResponse> call = service.search(//BuildConfig.FOOD_API_KEY,RECENT_SORT, COUNT,recipePage
+                 );
 
         Callback<RecipeSearchResponse> callback = new Callback<RecipeSearchResponse>() {
             @Override
@@ -42,9 +43,9 @@ public class RecipeMainRepositoryImpl implements RecipeMainRepository {
                         getNextRecipe();
                     }
                     else{
-                        Recipe recipe = recipeSearchResponse.getFirstRecipe();
-                        if(recipe != null){
-                            post(recipe);
+                        List<Recipe> recipes = recipeSearchResponse.getRecipes();
+                        if(recipes != null){
+                            post(recipes);
                         }else{
                             post(response.message());
                         }
@@ -79,15 +80,15 @@ public class RecipeMainRepositoryImpl implements RecipeMainRepository {
         post(error,RecipeMainEvent.NEXT_EVENT, null);
     }
 
-    private void post(String error, int type, Recipe recipe){
+    private void post(String error, int type, List<Recipe> recipe){
         RecipeMainEvent event = new RecipeMainEvent();
         event.setType(type);
         event.setError(error);
-        event.setRecipe(recipe);
+        event.setRecipes(recipe);
         eventBus.post(event);
     }
-    private void post(Recipe recipe){
-        post(null, RecipeMainEvent.NEXT_EVENT, recipe);
+    private void post(List<Recipe> recipes){
+        post(null, RecipeMainEvent.NEXT_EVENT, recipes);
     }
 
     private void post(){

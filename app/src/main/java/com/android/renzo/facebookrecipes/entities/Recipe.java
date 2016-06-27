@@ -11,23 +11,25 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  * Created by HOME on 26/06/2016.
  */
 @Table(database = RecipesDatabase.class)
-
 public class Recipe extends BaseModel {
-    @SerializedName("recipe_id")
+    //@SerializedName("recipe_id")
+    @SerializedName("id")
     @PrimaryKey
     private String recipeId;
 
+    @SerializedName("title")
     @Column
     private String title;
 
-    @SerializedName("image_url")
+    @SerializedName("backdrop_path")
     @Column
     private String imageURL;
 
-    @SerializedName("source_url")
+    @SerializedName("homepage")
     @Column
     private String sourceURL;
 
+    @SerializedName("adult")
     @Column
     private boolean favorite;
 
@@ -49,7 +51,7 @@ public class Recipe extends BaseModel {
     }
 
     public String getImageURL() {
-        return imageURL;
+        return "https://image.tmdb.org/t/p/w500_and_h281_bestv2" + imageURL;
     }
 
     public void setImageURL(String imageURL) {

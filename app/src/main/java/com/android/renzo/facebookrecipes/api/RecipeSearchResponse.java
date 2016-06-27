@@ -1,6 +1,7 @@
 package com.android.renzo.facebookrecipes.api;
 
 import com.android.renzo.facebookrecipes.entities.Recipe;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -8,7 +9,11 @@ import java.util.List;
  * Created by HOME on 26/06/2016.
  */
 public class RecipeSearchResponse {
+
+    @SerializedName("page")
     private int count;
+
+    @SerializedName("results")
     private List<Recipe> recipes;
 
     public int getCount() {

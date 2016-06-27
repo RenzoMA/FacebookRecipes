@@ -9,7 +9,7 @@ public interface RecipeMainRepository {
 
     public final static int COUNT = 1;
     public final static String RECENT_SORT = "r";
-    public final static int RECIPE_RANGE = 100000;
+    public final static int RECIPE_RANGE = 1000;
 
 
     void getNextRecipe();

@@ -2,6 +2,7 @@ package com.android.renzo.facebookrecipes.recipemain.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -48,6 +49,7 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeMainV
     private Recipe currentRecipe;
     private ImageLoader imageLoader;
     private RecipeMainComponent component;
+    private boolean firstLoad = true;
 
 
     @Override
@@ -161,26 +163,25 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeMainV
     @Override
     public void saveAnimation() {
         Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.save_animation);
-        imgRecipe.startAnimation(anim);
         anim.setAnimationListener(getAnimationListener());
+        imgRecipe.startAnimation(anim);
     }
 
     @Override
     public void dismissAnimation() {
         Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.dismiss_animation);
-        imgRecipe.startAnimation(anim);
         anim.setAnimationListener(getAnimationListener());
+        imgRecipe.startAnimation(anim);
     }
     private Animation.AnimationListener getAnimationListener(){
         return new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+            public void onAnimationStart(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 clearImage();
+                imageLoader.load(imgRecipe, currentRecipe.getImageURL());
             }
 
             @Override
@@ -209,9 +210,12 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeMainV
     }
 
     @Override
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(final Recipe recipe) {
         this.currentRecipe = recipe;
-        imageLoader.load(imgRecipe, recipe.getImageURL());
+        if(firstLoad) {
+            imageLoader.load(imgRecipe, currentRecipe.getImageURL());
+            firstLoad = false;
+        }
     }
 
     @Override

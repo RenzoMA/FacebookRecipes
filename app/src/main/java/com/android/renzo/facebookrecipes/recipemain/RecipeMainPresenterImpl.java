@@ -7,6 +7,8 @@ import com.android.renzo.facebookrecipes.recipemain.ui.RecipeMainView;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 /**
  * Created by HOME on 26/06/2016.
  */
@@ -16,6 +18,7 @@ public class RecipeMainPresenterImpl implements RecipeMainPresenter {
     private RecipeMainView view;
     SaveRecipeInteractor saveInteractor;
     GetNextRecipeInteractor getNextInteractor;
+    private List<Recipe> recipes;
 
     public RecipeMainPresenterImpl(EventBus eventBus, RecipeMainView view, SaveRecipeInteractor saveInteractor, GetNextRecipeInteractor getNextInteractor) {
         this.eventBus = eventBus;
@@ -51,7 +54,13 @@ public class RecipeMainPresenterImpl implements RecipeMainPresenter {
             view.hideUIElements();
             view.showProgress();
         }
-        getNextInteractor.execute();
+
+        if(recipes != null && recipes.size() > 0){
+            view.setRecipe(recipes.get(0));
+            recipes.remove(0);
+        }else {
+            getNextInteractor.execute();
+        }
     }
 
     @Override
@@ -74,10 +83,16 @@ public class RecipeMainPresenterImpl implements RecipeMainPresenter {
                 view.onGetRecipeError(error);
             }else{
                 if(event.getType() == RecipeMainEvent.NEXT_EVENT){
-                    view.setRecipe(event.getRecipe());
+                    recipes = event.getRecipes();
+                    view.setRecipe(recipes.get(0));
                 }else if (event.getType() == RecipeMainEvent.SAVE_EVENT){
                     view.onRecipeSaved();
-                    getNextInteractor.execute();
+                    if(recipes != null && recipes.size() > 0){
+                        view.setRecipe(recipes.get(0));
+                        recipes.remove(0);
+                    }else {
+                        getNextInteractor.execute();
+                    }
                 }
             }
         }

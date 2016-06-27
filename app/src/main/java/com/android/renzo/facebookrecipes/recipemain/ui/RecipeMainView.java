@@ -2,6 +2,8 @@ package com.android.renzo.facebookrecipes.recipemain.ui;
 
 import com.android.renzo.facebookrecipes.entities.Recipe;
 
+import java.util.List;
+
 /**
  * Created by HOME on 26/06/2016.
  */
