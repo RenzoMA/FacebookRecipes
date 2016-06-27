@@ -22,7 +22,7 @@ import dagger.Provides;
 public class LibsModule {
     private Activity activity;
 
-    public LibsModule(Fragment fragment) {
+    public LibsModule(Activity activity) {
         this.activity = activity;
     }
 
@@ -34,8 +34,8 @@ public class LibsModule {
 
     @Provides
     @Singleton
-    RequestManager providesRequestManager(Fragment fragment){
-        return  Glide.with(fragment);
+    RequestManager providesRequestManager(Activity activity){
+        return  Glide.with(activity);
     }
 
     @Provides
