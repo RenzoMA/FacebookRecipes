@@ -72,7 +72,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    private void removeRecipe(Recipe recipe) {
+    public void removeRecipe(Recipe recipe) {
         recipeList.remove(recipe);
         notifyDataSetChanged();
     }
