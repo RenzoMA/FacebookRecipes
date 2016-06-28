@@ -30,9 +30,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     private List<Recipe> recipeList;
     private ImageLoader imageLoader;
-    private OnItemClickLIstener onItemClickLIstener;
+    private OnItemClickListener onItemClickLIstener;
 
-    public RecipesAdapter(List<Recipe> recipeList, ImageLoader imageLoader, OnItemClickLIstener onItemClickLIstener) {
+    public RecipesAdapter(List<Recipe> recipeList, ImageLoader imageLoader, OnItemClickListener onItemClickLIstener) {
         this.recipeList = recipeList;
         this.imageLoader = imageLoader;
         this.onItemClickLIstener = onItemClickLIstener;
@@ -64,7 +64,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return 0;
+        return recipeList.size();
     }
 
     public void setRecipes(List<Recipe> recipes) {
@@ -101,7 +101,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             ButterKnife.bind(this,view);
         }
 
-        public void setOnItemClickListener(final Recipe currentRecipe, final OnItemClickLIstener onItemClickLIstener) {
+        public void setOnItemClickListener(final Recipe currentRecipe, final OnItemClickListener onItemClickLIstener) {
             view.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -124,7 +124,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             });
 
             ShareLinkContent content = new ShareLinkContent.Builder()
-                    .setContentUrl(Uri.parse(currentRecipe.getSourceURL()))
+                    .setContentUrl(Uri.parse(currentRecipe.getImageURL()))
                     .build();
 
             fbShare.setShareContent(content);

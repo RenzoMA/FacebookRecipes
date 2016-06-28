@@ -5,6 +5,12 @@ import android.content.Intent;
 
 import com.android.renzo.facebookrecipes.libs.di.LibsModule;
 import com.android.renzo.facebookrecipes.login.ui.LoginActivity;
+import com.android.renzo.facebookrecipes.recipelist.adapters.OnItemClickListener;
+import com.android.renzo.facebookrecipes.recipelist.di.DaggerRecipeListComponent;
+import com.android.renzo.facebookrecipes.recipelist.di.RecipeListComponent;
+import com.android.renzo.facebookrecipes.recipelist.di.RecipeListModule;
+import com.android.renzo.facebookrecipes.recipelist.ui.RecipeListActivity;
+import com.android.renzo.facebookrecipes.recipelist.ui.RecipeListView;
 import com.android.renzo.facebookrecipes.recipemain.di.DaggerRecipeMainComponent;
 import com.android.renzo.facebookrecipes.recipemain.di.RecipeMainComponent;
 import com.android.renzo.facebookrecipes.recipemain.di.RecipeMainModule;
@@ -58,6 +64,13 @@ public class FacebookRecipesApp extends Application {
                 .builder()
                 .libsModule(new LibsModule(activity))
                 .recipeMainModule(new RecipeMainModule(view))
+                .build();
+    }
+    public RecipeListComponent getRecipeListComponent(RecipeListActivity activity, RecipeListView view, OnItemClickListener itemClickListener){
+        return DaggerRecipeListComponent
+                .builder()
+                .libsModule(new LibsModule(activity))
+                .recipeListModule(new RecipeListModule(view,itemClickListener))
                 .build();
     }
 }

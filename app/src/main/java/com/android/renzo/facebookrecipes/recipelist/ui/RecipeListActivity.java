@@ -14,8 +14,9 @@ import com.android.renzo.facebookrecipes.FacebookRecipesApp;
 import com.android.renzo.facebookrecipes.R;
 import com.android.renzo.facebookrecipes.entities.Recipe;
 import com.android.renzo.facebookrecipes.recipelist.RecipeListPresenter;
-import com.android.renzo.facebookrecipes.recipelist.adapters.OnItemClickLIstener;
+import com.android.renzo.facebookrecipes.recipelist.adapters.OnItemClickListener;
 import com.android.renzo.facebookrecipes.recipelist.adapters.RecipesAdapter;
+import com.android.renzo.facebookrecipes.recipelist.di.RecipeListComponent;
 import com.android.renzo.facebookrecipes.recipemain.ui.RecipeMainActivity;
 
 import java.util.List;
@@ -24,15 +25,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RecipeListActivity extends AppCompatActivity implements RecipeListView, OnItemClickLIstener {
+public class RecipeListActivity extends AppCompatActivity implements RecipeListView, OnItemClickListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    RecipesAdapter adapter;
-    RecipeListPresenter presenter;
+    private RecipesAdapter adapter;
+    private RecipeListPresenter presenter;
+    private RecipeListComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,10 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
     }
 
     private void setupInjection() {
+        FacebookRecipesApp app = (FacebookRecipesApp) getApplication();
+        component = app.getRecipeListComponent(this,this,this);
+        presenter = getPresenter();
+        adapter = getAdapter();
     }
 
     private void setupRecyclervView() {
@@ -129,5 +135,13 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListV
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(recipe.getSourceURL()));
         startActivity(intent);
 
+    }
+
+    public RecipeListPresenter getPresenter() {
+        return component.getPresenter();
+    }
+
+    public RecipesAdapter getAdapter() {
+        return component.getAdapter();
     }
 }
