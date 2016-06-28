@@ -2,7 +2,6 @@ package com.android.renzo.facebookrecipes.recipemain.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -19,12 +18,11 @@ import android.widget.RelativeLayout;
 
 import com.android.renzo.facebookrecipes.FacebookRecipesApp;
 import com.android.renzo.facebookrecipes.R;
-import com.android.renzo.facebookrecipes.RecipeListActivity;
+import com.android.renzo.facebookrecipes.recipelist.ui.RecipeListActivity;
 import com.android.renzo.facebookrecipes.entities.Recipe;
 import com.android.renzo.facebookrecipes.libs.base.ImageLoader;
 import com.android.renzo.facebookrecipes.recipemain.RecipeMainPresenter;
 import com.android.renzo.facebookrecipes.recipemain.di.RecipeMainComponent;
-import com.android.renzo.facebookrecipes.recipemain.events.RecipeMainEvent;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
